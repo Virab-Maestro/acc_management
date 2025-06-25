@@ -45,8 +45,9 @@ function editAccount() {
   /* Two ways: build unique fc for every field or
   build one fc that validate every field at once(my choice) */
 
-  //add marks validation
-  if(!props.acc.login) {
+  if(marks.value.length > 50) {
+    return
+  }else if(!props.acc.login) {
     return
   }else if(props.acc.login.length > 0 && props.acc.login.length > 100) {
     return
@@ -81,7 +82,7 @@ function editAccount() {
       <v-text-field density='compact' variant='solo-filled' v-model='props.acc.pass' :rules="[(v) => v?.length > 0 || 'Введите пароль', rules.pass]" @focusout="editAccount" />
     </v-col>
 
-    <v-btn class='mb-6' icon='mdi-trash-can-outline' size='small' variant='flat' />
+    <v-btn class='mb-6' icon='mdi-trash-can-outline' size='small' variant='flat' @click="accountStore.rmAccount(props.acc.id)"/>
   </v-row>
 </template>
 

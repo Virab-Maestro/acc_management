@@ -19,9 +19,25 @@ const useAccountStore = defineStore('accounts', () => {
         localStorage.setItem('accounts', JSON.stringify(lsAccounts))
     }
 
+    function rmAccount(id: number) {
+        const lsAccounts = JSON.parse(localStorage.getItem('accounts'))
+        let toBeRmIdx = lsAccounts.findIndex(e => e.id == id)
+
+        if(toBeRmIdx == -1) { //not in localStorage
+            toBeRmIdx = accounts.value.findIndex(e => e.id == id)
+            accounts.value.splice(toBeRmIdx, 1)
+            return
+        }
+
+        lsAccounts.splice(toBeRmIdx, 1)
+        localStorage.setItem('accounts', JSON.stringify(lsAccounts))
+        accounts.value = JSON.parse(localStorage.getItem('accounts')) || []
+    }
+
     return {
         accounts,
         refreshLS,
+        rmAccount,
     }
 })
 
