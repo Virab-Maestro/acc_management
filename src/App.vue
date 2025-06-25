@@ -7,6 +7,7 @@ const accountStore = useAccountStore()
 function addAccount(): void {
   accountStore.accounts.push({
     id: Math.floor(Math.random() * 1000), //random id
+    marks: [],
     type: "local",
   })
 }
